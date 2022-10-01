@@ -1,5 +1,4 @@
 import * as express from 'express';
-// import errorMiddleware from './middlewares/http.error.middleware';
 import { loginRoute } from './routes'; // desconstruir
 
 class App {
@@ -29,7 +28,6 @@ class App {
   }
 
   private routes():void {
-    // this.app.use(errorMiddleware);
     this.app.use('/login', loginRoute);
   }
 
