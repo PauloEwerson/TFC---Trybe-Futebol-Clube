@@ -19,14 +19,14 @@ const responseUser = {
 }
 
 const invalidEmail = {
-  email: 'admin.com',
-  password: 'admin123',
+  email: 'user.com',
+  password: 'user123',
 };
 
 const errorMessage = 'Incorrect email or password';
 
 const invalidPassword = {
-  email: 'admin@admin.com',
+  email: 'user@user.com',
   password: 'test'
 };
 
