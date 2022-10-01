@@ -12,6 +12,8 @@ import {
   userBody,
   userMock,
   responseUser,
+  invalidEmail,
+  errorMessage,
 } from './mocks/login.mocks'
 
 chai.use(chaiHttp);
@@ -43,4 +45,30 @@ describe('Verifica a requisicao POST na rota /login', () => {
     expect(chaiHttpResponse.body).to.have.property('token');
     expect(chaiHttpResponse.body.user).to.deep.equal(responseUser);
   });
+});
+
+describe('Verifica as falhas na requisicao POST da rota /login', () => {
+
+  let chaiHttpResponse: Response;
+
+  before(async () => {
+    sinon
+      .stub(User, "findOne")
+      .resolves(null);
+  });
+
+  after(()=>{
+    (User.findOne as sinon.SinonStub).restore();
+  })
+
+  it('Verifica resposta da requisicao caso o email seja invalido', async () => {
+    chaiHttpResponse = await chai
+       .request(app)
+       .post('/login')
+       .send(invalidEmail)
+
+    expect(chaiHttpResponse.status).to.be.equal(401);
+    expect(chaiHttpResponse.body.message).to.be.equal(errorMessage);
+  });
+
 });

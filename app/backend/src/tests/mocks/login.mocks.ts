@@ -18,8 +18,17 @@ const responseUser = {
   email: 'user@user.com',
 }
 
+const invalidEmail = {
+  email: 'admin.com',
+  password: 'admin123',
+};
+
+const errorMessage = 'Incorrect email or password';
+
 export {
   userBody,
   userMock,
   responseUser,
+  invalidEmail,
+  errorMessage,
 };
