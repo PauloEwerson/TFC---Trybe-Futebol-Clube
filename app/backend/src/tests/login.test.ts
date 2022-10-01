@@ -14,6 +14,7 @@ import {
   responseUser,
   invalidEmail,
   errorMessage,
+  invalidPassword,
 } from './mocks/login.mocks'
 
 chai.use(chaiHttp);
@@ -66,6 +67,16 @@ describe('Verifica as falhas na requisicao POST da rota /login', () => {
        .request(app)
        .post('/login')
        .send(invalidEmail)
+
+    expect(chaiHttpResponse.status).to.be.equal(401);
+    expect(chaiHttpResponse.body.message).to.be.equal(errorMessage);
+  });
+
+  it('Verifica resposta da requisicao caso a senha seja invalida', async () => {
+    chaiHttpResponse = await chai
+       .request(app)
+       .post('/login')
+       .send(invalidPassword)
 
     expect(chaiHttpResponse.status).to.be.equal(401);
     expect(chaiHttpResponse.body.message).to.be.equal(errorMessage);

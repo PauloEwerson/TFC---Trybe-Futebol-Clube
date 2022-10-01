@@ -25,10 +25,16 @@ const invalidEmail = {
 
 const errorMessage = 'Incorrect email or password';
 
+const invalidPassword = {
+  email: 'admin@admin.com',
+  password: 'test'
+};
+
 export {
   userBody,
   userMock,
   responseUser,
   invalidEmail,
   errorMessage,
+  invalidPassword,
 };
