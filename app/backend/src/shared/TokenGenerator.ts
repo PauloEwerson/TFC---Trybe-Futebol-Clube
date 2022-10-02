@@ -19,7 +19,7 @@ class TokenGenerator {
   }
 
   public validateToken(authorization: string): JwtPayload {
-    return verify(authorization, jwtSecret) as JwtPayload;
+    return verify(authorization, jwtSecret, this.jwtConfig) as JwtPayload;
   }
 }
 

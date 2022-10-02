@@ -10,6 +10,7 @@ export default function tokenValidation(req: Request, res: Response, next: NextF
 
     const tokenGenerator = new TokenGenerator();
     const dataToken = tokenGenerator.validateToken(authorization);
+
     if (dataToken.error) {
       return res.status(401).json({ message: 'Expired or invalid token' });
     }

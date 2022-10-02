@@ -49,6 +49,7 @@ describe('Verifica a requisicao POST na rota /login', () => {
     expect(chaiHttpResponse.body).to.have.property('token');
     expect(chaiHttpResponse.body.user).to.deep.equal(responseUser);
   });
+
 });
 
 describe('Verifica as falhas na requisicao POST da rota /login', () => {
@@ -103,6 +104,32 @@ describe('Verifica as falhas na requisicao POST da rota /login', () => {
     
     expect(chaiHttpResponse.status).to.be.equal(400);
     expect(chaiHttpResponse.body.message).to.be.equal(fildMessageError);
+  });
+
+});
+
+describe('Verifica requisicao na rota login/validate', () => {
+
+  let chaiHttpResponse: Response;
+  
+  before(async () => {
+  sinon
+  .stub(User, "findOne")
+  .resolves(userMock as User);
+  });
+  
+  after(()=>{
+  (User.findOne as sinon.SinonStub).restore();
+  })
+
+it("Verifica se o token é válido", async () => {
+  chaiHttpResponse = await chai
+  .request(app)
+  .get('/login/validate')
+  .set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTY2NDY5MjQwOCwiZXhwIjoxNjY0NjkzMzA4fQ.IEWbfMiPbl_JFj6zXLoSKQcYqpiPANEpI_TlWh5ecWw')
+  
+  expect(chaiHttpResponse.status).to.be.equal(200);
+  expect(chaiHttpResponse.body).to.be.equal({ role: 'admin' });
   });
 
 });
