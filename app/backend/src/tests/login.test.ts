@@ -167,4 +167,13 @@ describe('Verifica as falhas na requisicao GET da rota /login/validate', () => {
     expect(chaiHttpResponse.status).to.be.equal(401);
     expect(chaiHttpResponse.body.message).to.be.equal('Expired or invalid token');
   });
+
+  it("Caso o token não exista", async () => {
+    chaiHttpResponse = await chai
+      .request(app)
+      .get('/login/validate')
+
+    expect(chaiHttpResponse.status).to.be.equal(401);
+    expect(chaiHttpResponse.body.message).to.be.equal('Token not found');
+  });
 });
