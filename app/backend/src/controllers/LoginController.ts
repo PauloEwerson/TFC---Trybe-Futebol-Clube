@@ -13,4 +13,16 @@ export default class LoginController {
       return res.send(error);
     }
   };
+
+  public validate = async (req: Request, res: Response) => {
+    const { authorization } = req.headers;
+
+    try {
+      const response = await this.loginService.getRole(authorization as string);
+      if (!response) return res.status(401).json({ message: 'User does not exist' });
+      return res.status(200).json(response);
+    } catch (error) {
+      return res.send(error);
+    }
+  };
 }

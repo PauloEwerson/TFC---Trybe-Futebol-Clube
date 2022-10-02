@@ -1,5 +1,4 @@
-// import { sign, SignOptions, verify, JwtPayload } from 'jsonwebtoken';
-import { sign, SignOptions } from 'jsonwebtoken';
+import { sign, SignOptions, verify, JwtPayload } from 'jsonwebtoken';
 
 const jwtSecret = process.env.JWT_SECRET || 'akldhkjladadhjksvdhj';
 
@@ -19,9 +18,9 @@ class TokenGenerator {
     return sign({ email }, jwtSecret, this.jwtConfig);
   }
 
-  // public validateToken(authorization: string): JwtPayload {
-  //   return verify(authorization, jwtSecret) as JwtPayload;
-  // }
+  public validateToken(authorization: string): JwtPayload {
+    return verify(authorization, jwtSecret) as JwtPayload;
+  }
 }
 
 export default TokenGenerator;
