@@ -30,6 +30,12 @@ const invalidPassword = {
   password: 'test'
 };
 
+const emptyEmail = {
+  password: 'admin123',
+};
+
+const fildMessageError = 'All fields must be filled';
+
 export {
   userBody,
   userMock,
@@ -37,4 +43,6 @@ export {
   invalidEmail,
   errorMessage,
   invalidPassword,
+  emptyEmail,
+  fildMessageError,
 };

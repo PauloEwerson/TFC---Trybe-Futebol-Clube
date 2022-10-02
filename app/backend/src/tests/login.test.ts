@@ -15,6 +15,8 @@ import {
   invalidEmail,
   errorMessage,
   invalidPassword,
+  emptyEmail,
+  fildMessageError,
 } from './mocks/login.mocks'
 
 chai.use(chaiHttp);
@@ -81,5 +83,15 @@ describe('Verifica as falhas na requisicao POST da rota /login', () => {
     expect(chaiHttpResponse.status).to.be.equal(401);
     expect(chaiHttpResponse.body.message).to.be.equal(errorMessage);
   });
+
+  it("Verifica resposta da requisicao caso o campo 'email' esteja vazio", async () => {
+    chaiHttpResponse = await chai
+    .request(app)
+    .post('/login')
+    .send(emptyEmail)
+    
+    expect(chaiHttpResponse.status).to.be.equal(400)
+    expect(chaiHttpResponse.body.message).to.be.equal(fildMessageError)
+    });
 
 });
