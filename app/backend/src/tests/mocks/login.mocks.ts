@@ -31,7 +31,11 @@ const invalidPassword = {
 };
 
 const emptyEmail = {
-  password: 'admin123',
+  password: 'user123',
+};
+
+const emptyPassword = {
+  email: 'user@user.com',
 };
 
 const fildMessageError = 'All fields must be filled';
@@ -45,4 +49,5 @@ export {
   invalidPassword,
   emptyEmail,
   fildMessageError,
+  emptyPassword,
 };

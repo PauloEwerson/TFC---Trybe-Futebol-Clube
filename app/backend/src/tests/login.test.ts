@@ -16,6 +16,7 @@ import {
   errorMessage,
   invalidPassword,
   emptyEmail,
+  emptyPassword,
   fildMessageError,
 } from './mocks/login.mocks'
 
@@ -33,7 +34,7 @@ describe('Verifica a requisicao POST na rota /login', () => {
       .resolves(userMock as User);
   });
 
-  after(()=>{
+  after(() => {
     (User.findOne as sinon.SinonStub).restore();
   })
 
@@ -60,7 +61,7 @@ describe('Verifica as falhas na requisicao POST da rota /login', () => {
       .resolves(null);
   });
 
-  after(()=>{
+  after(() => {
     (User.findOne as sinon.SinonStub).restore();
   })
 
@@ -84,14 +85,40 @@ describe('Verifica as falhas na requisicao POST da rota /login', () => {
     expect(chaiHttpResponse.body.message).to.be.equal(errorMessage);
   });
 
-  it("Verifica resposta da requisicao caso o campo 'email' esteja vazio", async () => {
+});
+
+describe('Verifica as falhas na requisicao POST da rota /login', () => {
+
+  let chaiHttpResponse: Response;
+  
+  before(async () => {
+  sinon
+  .stub(User, "findOne")
+  .resolves(null);
+  });
+  
+  after(() => {
+  (User.findOne as sinon.SinonStub).restore();
+  })
+
+it("Verifica resposta da requisicao caso o campo 'email' esteja vazio", async () => {
+  chaiHttpResponse = await chai
+  .request(app)
+  .post('/login')
+  .send(emptyEmail)
+  
+  expect(chaiHttpResponse.status).to.be.equal(400)
+  expect(chaiHttpResponse.body.message).to.be.equal(fildMessageError)
+  });
+
+  it("Verifica resposta da requisicao caso o campo 'password' esteja vazio", async () => {
     chaiHttpResponse = await chai
     .request(app)
     .post('/login')
-    .send(emptyEmail)
+    .send(emptyPassword)
     
-    expect(chaiHttpResponse.status).to.be.equal(400)
-    expect(chaiHttpResponse.body.message).to.be.equal(fildMessageError)
+    expect(chaiHttpResponse.status).to.be.equal(401);
+    expect(chaiHttpResponse.body.message).to.be.equal(fildMessageError);
     });
 
 });
