@@ -20,7 +20,7 @@ export default class LoginController {
     try {
       const response = await this.loginService.getRole(authorization as string);
       if (!response) return res.status(401).json({ message: 'User does not exist' });
-      return res.status(200).json(response);
+      return res.status(200).json({ role: response });
     } catch (error) {
       return res.send(error);
     }
