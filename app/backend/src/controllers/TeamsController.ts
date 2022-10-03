@@ -14,4 +14,17 @@ export default class TeamsController {
       return res.send(error);
     }
   };
+
+  public getById = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    try {
+      const response = await this.teamsService.getById(id);
+      if (!response) return res.status(404).json({ message: 'Team not found' });
+      return res.status(200).json(response);
+    } catch (error) {
+      console.log('error =>', error);
+      return res.send(error);
+    }
+  };
 }
