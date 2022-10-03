@@ -25,6 +25,7 @@ export default class MatchesController {
       }
       return res.status(201).json(response);
     } catch (error) {
+      console.log('error =>', error);
       return res.send(error);
     }
   };
@@ -37,7 +38,20 @@ export default class MatchesController {
       if (!response) return res.status(404).json({ message: 'Not found' });
       return res.status(200).json({ message: 'Finished' });
     } catch (error) {
+      console.log('error =>', error);
       return res.send(error);
+    }
+  };
+
+  public updateMatch = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    try {
+      await this.matchesService.updateMatch(id, req.body);
+      return res.status(200).json({ message: 'Match updated successfully' });
+    } catch (error) {
+      console.log('error =>', error);
+      res.send(error);
     }
   };
 }

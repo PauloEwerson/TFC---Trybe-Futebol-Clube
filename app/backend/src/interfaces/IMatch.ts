@@ -28,3 +28,8 @@ export interface IDataMatch {
   awayTeamGoals: number;
   inProgress: boolean;
 }
+
+export interface IUpdateMatch {
+  homeTeamGoals: number;
+  awayTeamGoals: number;
+}

@@ -1,4 +1,4 @@
-import IMatch, { IBodyMatch, IDataMatch } from '../interfaces/IMatch';
+import IMatch, { IBodyMatch, IDataMatch, IUpdateMatch } from '../interfaces/IMatch';
 import Match from '../database/models/Match';
 import Team from '../database/models/Team';
 
@@ -32,5 +32,15 @@ export default class MatchesService {
       { where: { id: Number(id) } },
     );
     return true;
+  };
+
+  public updateMatch = async (id: string, match: IUpdateMatch): Promise<void> => {
+    await Match.update(
+      {
+        homeTeamGoals: match.homeTeamGoals,
+        awayTeamGoals: match.awayTeamGoals,
+      },
+      { where: { id: Number(id) } },
+    );
   };
 }
