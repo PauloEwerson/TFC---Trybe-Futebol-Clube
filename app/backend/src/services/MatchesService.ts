@@ -1,4 +1,4 @@
-import IMatch from '../interfaces/IMatch';
+import IMatch, { IBodyMatch, IDataMatch } from '../interfaces/IMatch';
 import Match from '../database/models/Match';
 import Team from '../database/models/Team';
 
@@ -11,5 +11,18 @@ export default class MatchesService {
       ],
     });
     return response;
+  };
+
+  public createMatch = async (match: IBodyMatch): Promise<IDataMatch | null> => {
+    const create = await Match.create({
+      homeTeam: match.homeTeam,
+      homeTeamGoals: match.homeTeamGoals,
+      awayTeam: match.awayTeam,
+      awayTeamGoals: match.awayTeamGoals,
+      inProgress: true,
+    });
+
+    if (!create) return null;
+    return create;
   };
 }

@@ -12,3 +12,19 @@ export default interface IMatch {
     teamName: string;
   }
 }
+
+export interface IBodyMatch {
+  homeTeam: number;
+  awayTeam: number;
+  homeTeamGoals: number;
+  awayTeamGoals: number;
+}
+
+export interface IDataMatch {
+  id: number;
+  homeTeam: number;
+  awayTeam: number;
+  homeTeamGoals: number;
+  awayTeamGoals: number;
+  inProgress: boolean;
+}
