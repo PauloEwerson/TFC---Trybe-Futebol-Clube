@@ -18,6 +18,7 @@ import {
   emptyEmail,
   emptyPassword,
   fildMessageError,
+  validToken,
 } from './mocks/login.mocks'
 
 chai.use(chaiHttp);
@@ -126,7 +127,7 @@ describe('Verifica requisicao GET na rota login/validate', () => {
     chaiHttpResponse = await chai
       .request(app)
       .get('/login/validate')
-      .set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTY2NDY5MjQwOCwiZXhwIjoxNjY0NjkzMzA4fQ.IEWbfMiPbl_JFj6zXLoSKQcYqpiPANEpI_TlWh5ecWw')
+      .set('authorization', validToken)
 
     expect(chaiHttpResponse.status).to.be.equal(200);
     expect(chaiHttpResponse.body).to.be.equal({ role: 'admin' });
@@ -151,7 +152,7 @@ describe('Verifica as falhas na requisicao GET da rota /login/validate', () => {
     chaiHttpResponse = await chai
       .request(app)
       .get('/login/validate')
-      .set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTY2NDY5MjQwOCwiZXhwIjoxNjY0NjkzMzA4fQ.IEWbfMiPbl_JFj6zXLoSKQcYqpiPANEpI_TlWh5ecWw')
+      .set('authorization', validToken)
 
     expect(chaiHttpResponse.status).to.be.equal(401);
     expect(chaiHttpResponse.body.message).to.be.equal('User does not exist');
