@@ -28,4 +28,16 @@ export default class MatchesController {
       return res.send(error);
     }
   };
+
+  public patchMyMatch = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    try {
+      const response = await this.matchesService.patchMyMatch(id);
+      if (!response) return res.status(404).json({ message: 'Not found' });
+      return res.status(200).json({ message: 'Finished' });
+    } catch (error) {
+      return res.send(error);
+    }
+  };
 }

@@ -25,4 +25,12 @@ export default class MatchesService {
     if (!create) return null;
     return create;
   };
+
+  public patchMyMatch = async (id: string): Promise<boolean> => {
+    await Match.update(
+      { inProgress: false },
+      { where: { id: Number(id) } },
+    );
+    return true;
+  };
 }
