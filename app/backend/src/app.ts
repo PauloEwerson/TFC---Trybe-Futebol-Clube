@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { loginRoute, teamsRoutes } from './routes'; // desconstruir
+import { loginRoute, teamsRoute, matchesRoute } from './routes'; // desconstruir
 
 class App {
   public app: express.Express;
@@ -29,7 +29,8 @@ class App {
 
   private routes():void {
     this.app.use('/login', loginRoute);
-    this.app.use('/teams', teamsRoutes);
+    this.app.use('/teams', teamsRoute);
+    this.app.use('/matches', matchesRoute);
   }
 
   public start(PORT: string | number):void {

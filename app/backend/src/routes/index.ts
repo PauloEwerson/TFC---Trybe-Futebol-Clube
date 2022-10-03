@@ -1,7 +1,9 @@
 import loginRoute from './loginRoute';
-import teamsRoutes from './teamsRoutes';
+import teamsRoute from './teamsRoute';
+import matchesRoute from './matchesRoute';
 
 export {
   loginRoute,
-  teamsRoutes,
+  teamsRoute,
+  matchesRoute,
 };

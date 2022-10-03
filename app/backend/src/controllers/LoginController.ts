@@ -10,6 +10,7 @@ export default class LoginController {
       if (!response) return res.status(401).json({ message: 'Incorrect email or password' });
       return res.status(200).json(response);
     } catch (error) {
+      console.log('error =>', error);
       return res.send(error);
     }
   };
@@ -22,6 +23,7 @@ export default class LoginController {
       if (!response) return res.status(401).json({ message: 'User does not exist' });
       return res.status(200).json({ role: response });
     } catch (error) {
+      console.log('error =>', error);
       return res.send(error);
     }
   };
