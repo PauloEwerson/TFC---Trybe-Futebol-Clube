@@ -7,20 +7,10 @@ const jwtDefaultConfig: SignOptions = {
   algorithm: 'HS256',
 };
 
-class TokenGenerator {
-  constructor(private jwtConfig?: SignOptions) {
-    if (!jwtConfig) {
-      this.jwtConfig = jwtDefaultConfig;
-    }
-  }
-
-  public generateJWTToken(email: string) {
-    return sign({ email }, jwtSecret, this.jwtConfig);
-  }
-
-  public validateToken(authorization: string): JwtPayload {
-    return verify(authorization, jwtSecret, this.jwtConfig) as JwtPayload;
-  }
+export function generateJWTToken(email: string) {
+  return sign({ email }, jwtSecret, jwtDefaultConfig);
 }
 
-export default TokenGenerator;
+export function validateJWTToken(authorization: string): JwtPayload {
+  return verify(authorization, jwtSecret) as JwtPayload;
+}

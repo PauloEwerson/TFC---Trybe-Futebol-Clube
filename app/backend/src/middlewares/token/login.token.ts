@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import TokenGenerator from '../../shared/TokenGenerator';
+import { validateJWTToken } from '../../shared/TokenGenerator';
 
 export default function tokenValidation(req: Request, res: Response, next: NextFunction) {
   const { authorization } = req.headers;
@@ -7,9 +7,7 @@ export default function tokenValidation(req: Request, res: Response, next: NextF
     if (!authorization) {
       return res.status(401).json({ message: 'Token not found' });
     }
-
-    const tokenGenerator = new TokenGenerator();
-    const dataToken = tokenGenerator.validateToken(authorization);
+    const dataToken = validateJWTToken(authorization);
 
     if (dataToken.error) {
       return res.status(401).json({ message: 'Expired or invalid token' });
