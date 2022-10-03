@@ -7,7 +7,7 @@ export default class MatchesController {
   public getMatches = async (_req: Request, res: Response) => {
     try {
       const response = await this.matchesService.getMatches();
-      if (!response) return res.status(500).json({ message: 'Server error' });
+      if (!response) return res.status(404).json({ message: 'Not found' });
       return res.status(200).json(response);
     } catch (error) {
       console.log('error =>', error);
@@ -18,7 +18,11 @@ export default class MatchesController {
   public createMatch = async (req: Request, res: Response) => {
     try {
       const response = await this.matchesService.createMatch(req.body);
-      if (!response) return res.status(400).json({ message: 'Bad request' });
+      if (!response) {
+        return res.status(400).json(
+          { message: 'Body must be an expected JSON object' },
+        );
+      }
       return res.status(201).json(response);
     } catch (error) {
       return res.send(error);
