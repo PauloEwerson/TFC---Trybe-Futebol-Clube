@@ -5,10 +5,10 @@ import ILeaderboard from '../interfaces/ILeaderboard';
 const totalPoints = (matches: IMatch[]) => {
   let totalP = 0;
   matches.forEach((match) => {
-    if (match.homeTeamGoals > match.awayTeamGoals) {
+    if (match.awayTeamGoals > match.homeTeamGoals) {
       totalP += 3;
     }
-    if (match.homeTeamGoals === match.awayTeamGoals) {
+    if (match.awayTeamGoals === match.homeTeamGoals) {
       totalP += 1;
     }
   });
@@ -22,7 +22,7 @@ const totalGames = (matches: IMatch[]) => matches.length;
 const totalVictories = (matches: IMatch[]) => {
   let totalV = 0;
   matches.forEach((match) => {
-    if (match.homeTeamGoals > match.awayTeamGoals) {
+    if (match.awayTeamGoals > match.homeTeamGoals) {
       totalV += 1;
     }
   });
@@ -33,7 +33,7 @@ const totalVictories = (matches: IMatch[]) => {
 const totalDraws = (matches: IMatch[]) => {
   let totalE = 0;
   matches.forEach((match) => {
-    if (match.homeTeamGoals === match.awayTeamGoals) {
+    if (match.awayTeamGoals === match.homeTeamGoals) {
       totalE += 1;
     }
   });
@@ -44,7 +44,7 @@ const totalDraws = (matches: IMatch[]) => {
 const totalLosses = (matches: IMatch[]) => {
   let totalD = 0;
   matches.forEach((match) => {
-    if (match.homeTeamGoals < match.awayTeamGoals) {
+    if (match.awayTeamGoals < match.homeTeamGoals) {
       totalD += 1;
     }
   });
@@ -55,7 +55,7 @@ const totalLosses = (matches: IMatch[]) => {
 const goalsFavor = (matches: IMatch[]) => {
   let goalsGP = 0;
   matches.forEach((match) => {
-    goalsGP += match.homeTeamGoals;
+    goalsGP += match.awayTeamGoals;
   });
   return goalsGP;
 };
@@ -64,7 +64,7 @@ const goalsFavor = (matches: IMatch[]) => {
 const goalsOwn = (matches: IMatch[]) => {
   let goalsGC = 0;
   matches.forEach((match) => {
-    goalsGC += match.awayTeamGoals;
+    goalsGC += match.homeTeamGoals;
   });
   return goalsGC;
 };
@@ -80,11 +80,11 @@ const efficiency = (matches: IMatch[]) => {
   return Number(rating);
 };
 
-const generateScore = (nameTeams: string[], matches: IMatch[]) => {
+const generateScoreAway = (nameTeams: string[], matches: IMatch[]) => {
   const leaderboard = [] as ILeaderboard[];
 
   nameTeams.forEach((name) => {
-    const result = matches.filter(({ teamHome }) => teamHome.teamName === name);
+    const result = matches.filter(({ teamAway }) => teamAway.teamName === name);
     leaderboard.push({
       name,
       totalPoints: totalPoints(result),
@@ -102,26 +102,19 @@ const generateScore = (nameTeams: string[], matches: IMatch[]) => {
   return leaderboard;
 };
 
-const tiebreakerOrder = (scoresTeams: ILeaderboard[]) => {
-  scoresTeams.sort((a, b) => {
-    if (a.totalPoints === b.totalPoints) {
-      if (a.totalVictories === b.totalVictories) {
-        if (a.goalsBalance === b.goalsBalance) {
-          if (a.goalsFavor === b.goalsFavor) {
-            return a.goalsOwn - b.goalsOwn;
-          }
-          return b.goalsFavor - a.goalsFavor;
-        }
-        return b.goalsBalance - a.goalsBalance;
-      }
-      return b.totalVictories - a.totalVictories;
-    }
-    return b.totalPoints - a.totalPoints;
-  });
-  return scoresTeams;
+const tiebreakerOrderHomeAway = (scoresTeams: ILeaderboard[]) => {
+  const result = scoresTeams.sort(
+    (a, b) =>
+      b.totalPoints - a.totalPoints
+      || b.totalVictories - a.totalVictories
+      || b.goalsBalance - a.goalsBalance
+      || b.goalsFavor - a.goalsFavor
+      || b.goalsOwn - a.goalsOwn,
+  );
+  return result;
 };
 
 export {
-  generateScore,
-  tiebreakerOrder,
+  generateScoreAway,
+  tiebreakerOrderHomeAway,
 };
