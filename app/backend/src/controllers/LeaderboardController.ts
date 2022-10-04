@@ -17,11 +17,21 @@ export default class LeaderboardController {
   public getAwayLeaderboard = async (_req: Request, res: Response) => {
     try {
       const response = await this.leaderboardService.getAwayLeaderboard();
-      if (!response) return res.status(404).json();
+      if (!response) return res.status(404).json({ message: 'Not found' });
       return res.status(200).json(response);
     } catch (error) {
       console.log('error =>', error);
       res.send(error);
+    }
+  };
+
+  public getAllLeaderboard = async (_req: Request, res: Response) => {
+    try {
+      const response = await this.leaderboardService.sortAllLeaderboard();
+      if (!response) return res.status(404).json({ message: 'Not found' });
+      return res.status(200).json(response);
+    } catch (error) {
+      console.log('error =>', error);
     }
   };
 }

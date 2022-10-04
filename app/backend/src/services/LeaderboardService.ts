@@ -37,4 +37,43 @@ export default class LeaderboardService {
     // Returns leaderboard in order | by: (totalPoints), totalVictories, goalsBalance, goalsFavor, goalsOwn.
     return tiebreakerOrderHomeAway(scoresTeams);
   };
+
+  public concatAllLeaderboard = async (): Promise<ILeaderboard[]> => {
+    const home = await this.getHomeLeaderboard();
+    const away = await this.getAwayLeaderboard();
+    return home.concat(away);
+  };
+
+  public totalAllLeaderboard = async (): Promise<ILeaderboard[]> => {
+    const allLeaderboard = await this.concatAllLeaderboard();
+    const leaderboard = [] as ILeaderboard[];
+    allLeaderboard.forEach((team) => {
+      const result = leaderboard.find(({ name }) => name === team.name);
+      if (result) {
+        result.totalPoints += team.totalPoints;
+        result.totalGames += team.totalGames;
+        result.totalVictories += team.totalVictories;
+        result.totalDraws += team.totalDraws;
+        result.totalLosses += team.totalLosses;
+        result.goalsFavor += team.goalsFavor;
+        result.goalsOwn += team.goalsOwn;
+        result.goalsBalance += team.goalsBalance;
+        result.efficiency = Number(
+          ((result.totalPoints / (result.totalGames * 3)) * 100).toFixed(2),
+        );
+      } else { leaderboard.push(team); }
+    }); return leaderboard;
+  };
+
+  public sortAllLeaderboard = async (): Promise<ILeaderboard[]> => {
+    const allLeaderboard = await this.totalAllLeaderboard();
+    return allLeaderboard.sort(
+      (a, b) =>
+        b.totalPoints - a.totalPoints
+        || b.totalVictories - a.totalVictories
+        || b.goalsBalance - a.goalsBalance
+        || b.goalsFavor - a.goalsFavor
+        || b.goalsOwn - a.goalsOwn,
+    );
+  };
 }
