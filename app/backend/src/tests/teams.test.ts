@@ -43,7 +43,7 @@ describe('Verifica requisicao GET na rota /teams', () => {
 
 });
 
-describe('Verifica as falhas na requisicao GET da rota /teams', () => {
+describe('Verifica resposta de erro do servidor na requisicao GET da rota /teams', () => {
   let chaiHttpResponse: Response;
 
   before(async () => {
@@ -55,13 +55,38 @@ describe('Verifica as falhas na requisicao GET da rota /teams', () => {
     (Team.findAll as sinon.SinonStub).restore();
   })
 
-  it.only("Caso não encontre a tabela teams", async () => {
+  it("Caso não encontre a tabela teams", async () => {
+    chaiHttpResponse = await chai
+      .request(app)
+      .get('/teams')
+
+    expect(chaiHttpResponse.status).to.be.equal(500);
+    expect(chaiHttpResponse.body.message).to.be.equal(serverError);
+  });
+
+});
+
+describe('Verifica requisicao GET da rota /teams', () => {
+  let chaiHttpResponse: Response;
+
+  before(async () => {
+    sinon
+      .stub(Team, "findAll")
+      .resolves([]);
+  });
+
+  after(() => {
+    (Team.findAll as sinon.SinonStub).restore();
+  })
+
+  it("Caso não haja times cadastrados", async () => {
     chaiHttpResponse = await chai
       .request(app)
       .get('/teams')
     
-    expect(chaiHttpResponse.status).to.be.equal(500);
-    expect(chaiHttpResponse.body.message).to.be.equal(serverError);
+    expect(chaiHttpResponse.status).to.be.equal(200);
+    expect(chaiHttpResponse.body).to.be.an('array');
+    expect(chaiHttpResponse.body).to.have.lengthOf(0);
   });
 
 });
