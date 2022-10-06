@@ -7,11 +7,10 @@ export default class TeamsController {
   public getTeams = async (_req: Request, res: Response) => {
     try {
       const response = await this.teamsService.getTeams();
-      if (!response) return res.status(500).json({ message: 'Server error' });
       return res.status(200).json(response);
     } catch (error) {
       console.log('error =>', error);
-      return res.send(error);
+      return res.status(500).send({ message: 'Server error' });
     }
   };
 
@@ -24,7 +23,7 @@ export default class TeamsController {
       return res.status(200).json(response);
     } catch (error) {
       console.log('error =>', error);
-      return res.send(error);
+      return res.status(500).send({ message: 'Server error' });
     }
   };
 }
