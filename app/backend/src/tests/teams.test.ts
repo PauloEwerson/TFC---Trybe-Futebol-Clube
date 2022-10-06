@@ -13,6 +13,7 @@ import {
   responseTeams,
   serverError,
   teamById,
+  notFoundTeam,
 } from './mocks/teams.mocks'
 
 chai.use(chaiHttp);
@@ -112,6 +113,30 @@ describe('Verifica requisicao GET da rota /teams/:id', () => {
     
     expect(chaiHttpResponse.status).to.be.equal(200);
     expect(chaiHttpResponse.body).to.own.include(teamById);
+  });
+
+});
+
+describe('Verifica falhas na requisicao GET da rota /teams', () => {
+  let chaiHttpResponse: Response;
+
+  before(async () => {
+    sinon
+      .stub(Team, "findByPk")
+      .resolves(null);
+  });
+
+  after(() => {
+    (Team.findByPk as sinon.SinonStub).restore();
+  })
+
+  it("Caso o time nao seja encontrado", async () => {
+    chaiHttpResponse = await chai
+      .request(app)
+      .get('/teams/unexistent_team')
+
+    expect(chaiHttpResponse.status).to.be.equal(404);
+    expect(chaiHttpResponse.body.message).to.be.equal(notFoundTeam);
   });
 
 });
