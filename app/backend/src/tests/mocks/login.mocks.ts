@@ -40,7 +40,7 @@ const emptyPassword = {
 
 const fildMessageError = 'All fields must be filled';
 
-const validToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTY2NDY5MjQwOCwiZXhwIjoxNjY0NjkzMzA4fQ.IEWbfMiPbl_JFj6zXLoSKQcYqpiPANEpI_TlWh5ecWw';
+const validToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTY2NTA0MjI4MiwiZXhwIjoxNjY2MzM4MjgyfQ.obZizZ7Po_V-ynLmIYaBsScqkL8Z2i0ksiHkdFNd4So';
 
 export {
   userBody,

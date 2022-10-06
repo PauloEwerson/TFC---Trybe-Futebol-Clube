@@ -130,7 +130,7 @@ describe('Verifica requisicao GET na rota login/validate', () => {
       .set('authorization', validToken)
 
     expect(chaiHttpResponse.status).to.be.equal(200);
-    expect(chaiHttpResponse.body).to.be.equal({ role: 'admin' });
+    expect(chaiHttpResponse.body).to.own.include({ role: 'admin' });
   });
 
 });
@@ -164,9 +164,9 @@ describe('Verifica as falhas na requisicao GET da rota /login/validate', () => {
       .request(app)
       .get('/login/validate')
       .set('authorization', 'Expired_or_invalid_token')
-
+   
     expect(chaiHttpResponse.status).to.be.equal(401);
-    expect(chaiHttpResponse.body.message).to.be.equal('Expired or invalid token');
+    expect(chaiHttpResponse.body.message).to.be.equal('No access authorization');
   });
 
   it("Caso o token não exista", async () => {

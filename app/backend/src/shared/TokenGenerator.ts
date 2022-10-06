@@ -3,7 +3,7 @@ import { sign, SignOptions, verify, JwtPayload } from 'jsonwebtoken';
 const jwtSecret = process.env.JWT_SECRET || 'akldhkjladadhjksvdhj';
 
 const jwtDefaultConfig: SignOptions = {
-  expiresIn: '15m',
+  expiresIn: '15d',
   algorithm: 'HS256',
 };
 
