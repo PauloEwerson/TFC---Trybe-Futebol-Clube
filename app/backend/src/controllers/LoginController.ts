@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import LoginService from '../services/LoginService';
+import message from '../shared/message';
 
 export default class LoginController {
   constructor(private loginService = new LoginService()) {}
@@ -11,7 +12,7 @@ export default class LoginController {
       return res.status(200).json(response);
     } catch (error) {
       console.log('error =>', error);
-      return res.send(error);
+      return res.status(500).json({ message: message.serverError });
     }
   };
 
@@ -24,7 +25,7 @@ export default class LoginController {
       return res.status(200).json({ role: response });
     } catch (error) {
       console.log('error =>', error);
-      return res.send(error);
+      return res.status(500).json({ message: message.serverError });
     }
   };
 }

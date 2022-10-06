@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import MatchesService from '../services/MatchesService';
+import message from '../shared/message';
 
 export default class MatchesController {
   constructor(private matchesService = new MatchesService()) {}
@@ -11,7 +12,7 @@ export default class MatchesController {
       return res.status(200).json(response);
     } catch (error) {
       console.log('error =>', error);
-      return res.send(error);
+      return res.status(500).json({ message: message.serverError });
     }
   };
 
@@ -26,7 +27,7 @@ export default class MatchesController {
       return res.status(201).json(response);
     } catch (error) {
       console.log('error =>', error);
-      return res.send(error);
+      return res.status(500).json({ message: message.serverError });
     }
   };
 
@@ -39,7 +40,7 @@ export default class MatchesController {
       return res.status(200).json({ message: 'Finished' });
     } catch (error) {
       console.log('error =>', error);
-      return res.send(error);
+      return res.status(500).json({ message: message.serverError });
     }
   };
 
@@ -51,7 +52,7 @@ export default class MatchesController {
       return res.status(200).json({ message: 'Match updated successfully' });
     } catch (error) {
       console.log('error =>', error);
-      res.send(error);
+      return res.status(500).json({ message: message.serverError });
     }
   };
 }

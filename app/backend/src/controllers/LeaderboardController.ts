@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import LeaderboardService from '../services/LeaderboardService';
+import message from '../shared/message';
 
 export default class LeaderboardController {
   constructor(private leaderboardService = new LeaderboardService()) {}
@@ -10,7 +11,7 @@ export default class LeaderboardController {
       return res.status(200).json(response);
     } catch (error) {
       console.log('error =>', error);
-      res.send(error);
+      return res.status(500).json({ message: message.serverError });
     }
   };
 
@@ -21,7 +22,7 @@ export default class LeaderboardController {
       return res.status(200).json(response);
     } catch (error) {
       console.log('error =>', error);
-      res.send(error);
+      return res.status(500).json({ message: message.serverError });
     }
   };
 
@@ -32,6 +33,7 @@ export default class LeaderboardController {
       return res.status(200).json(response);
     } catch (error) {
       console.log('error =>', error);
+      return res.status(500).json({ message: message.serverError });
     }
   };
 }

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import TeamsService from '../services/TeamsService';
+import message from '../shared/message';
 
 export default class TeamsController {
   constructor(private teamsService = new TeamsService()) {}
@@ -10,7 +11,7 @@ export default class TeamsController {
       return res.status(200).json(response);
     } catch (error) {
       console.log('error =>', error);
-      return res.status(500).send({ message: 'Server error' });
+      return res.status(500).json({ message: message.serverError });
     }
   };
 
@@ -23,7 +24,7 @@ export default class TeamsController {
       return res.status(200).json(response);
     } catch (error) {
       console.log('error =>', error);
-      return res.status(500).send({ message: 'Server error' });
+      return res.status(500).json({ message: message.serverError });
     }
   };
 }
