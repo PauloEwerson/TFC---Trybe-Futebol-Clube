@@ -2,6 +2,7 @@
 
 O TFC é um site informativo sobre partidas e classificações de futebol, desenvolvido durante o módulo de backend no curso de desenvolvimento web na <a href="https://github.com/betrybe">@Trybe</a></li>, com objetivo de entender como se dá a integração entre front e back-end (com banco de dados), e como essa configuração pode ser feita utilizando o Docker Compose!
 
+
 ![Logo](https://raw.githubusercontent.com/PauloEwerson/TFC-Trybe-Futebol-Clube/main/app/frontend/src/images/front-page.png)
 
 
@@ -17,6 +18,14 @@ O TFC é um site informativo sobre partidas e classificações de futebol, desen
   </a>
 </p>
 
+## Aprendizados
+
+- Realização da dockerização dos apps, network, volume e compose;
+- Modelagem de dados com MySQL através do Sequelize;
+- Criação e associação de tabelas usando models do sequelize;
+- Construção de uma API REST com endpoints para consumir os models criados;
+- Construção de um CRUD com TypeScript, utilizando ORM;
+- Cobertura de testes com Mocha, Chai e Sinon
 
 ## Instalação
 
@@ -54,14 +63,6 @@ Para encerrar o container:
   $ npm run compose:down
 ```
 
-## Aprendizados
-
-- Realização da dockerização dos apps, network, volume e compose;
-- Modelagem de dados com MySQL através do Sequelize;
-- Criação e associação de tabelas usando models do sequelize;
-- Construção de uma API REST com endpoints para consumir os models criados;
-- Construção de um CRUD com TypeScript, utilizando ORM;
-- Cobertura de testes com Mocha, Chai e Sinon
 ## Legenda
 
 - `Classificação`: Posição na classificação;
@@ -76,4 +77,4 @@ Para encerrar o container:
 - `SG`: Saldo total de gols;
 - `%`: Aproveitamento do time.
 
-Feito com ❤️ por Paulo Ewerson 👋🏻 [Get in touch!](https://github.com/PauloEwerson)
+#### Feito com ❤️ por Paulo Ewerson 👋🏻 [Get in touch!](https://github.com/PauloEwerson)
